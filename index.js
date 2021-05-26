@@ -15,27 +15,33 @@ const axios = require('axios');
 
 client.on('ready', () => {
   console.log("Listo!");
-  client.user.setPresence({data: {
-    name: "hackersquad owo",
-    type: "PLAYING"
-  }});
+  client.user.setPresence({
+    activity: {
+      name: "hackersquad owo",      
+      type: "WATCHING"
+    }
+  });
 });
 
-client.on("message", message => {
-
+client.on("message", async message => {
   const args = message.content.split(' ').slice(1);
-
   function wrong(params) {
     let emb = new Discord.MessageEmbed()
       .setDescription(params)
       .setColor("RED");
     message.channel.send(emb);
   }
+  function good(params) {
+    let emb = new Discord.MessageEmbed()
+      .setDescription(params)
+      .setColor("GREEN");
+    message.channel.send(emb);
+  }
 	function sleep(ms) {
 		return new Promise(resolve => {
 			setTimeout(resolve, ms);
 		});
-	}  
+	} 
   /* webhook info command */
   if (message.content.startsWith("xget")) {
     if (args.length == 0) return wrong("No webhook!");
@@ -56,8 +62,14 @@ client.on("message", message => {
     if (args.length == 0) return wrong("No webhook!");
     let data = []; // here webhook's data will be pushed
     let webhook = args.join(" ");
+    if (!webhook.includes("https://discord.com/api/webhooks/")) return wrong("Invalid webhook!");
+    try {
+      await axios.get(webhook);
+    } 
+    catch(error) {
+      return wrong("Invalid webhook")
+    };
     data.push(webhook);
-
     let filter = m => m.author.id === message.author.id;
     let info = {max: 1, time: 30000, errors: ['time']};
     message.channel.send("Enter webhook's name")
@@ -115,8 +127,10 @@ client.on("message", message => {
                         options.content = newContent.join(" ");
                       }
                       axios.post(data[0], options)
-                        .catch(error => console.log("Axios err: " + error));
-                      message.channel.send("Sended " + x + " messages")
+                        .then(res => good("Sended " + x + " messages"))
+                        .catch(error => {
+                          wrong(error);
+                        });
                       await sleep(1000);
                     };
                     wrong("Spam successfully ended")
