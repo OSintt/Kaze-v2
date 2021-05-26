@@ -19,4 +19,4 @@
 # KazeV2
 ```js 
 <funcionalidades>
-Explotar webhooks```
+Explotar webhooks
