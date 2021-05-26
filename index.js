@@ -21,7 +21,7 @@ const bot = new Client({
 
 bot.on("ready", (message) => {
     console.log("Listo para explotarte el culo osint")
-    let estados = ["Estados"]
+    let estados = ["Nix o.o", "Hacker squad", "Osint :3", "A ryo el mas pro" "I love"]
     setInterval(() => {
         function presence() {
             bot.user.setPresence({
@@ -39,7 +39,7 @@ bot.on("ready", (message) => {
 });
 
     bot.on("message", async (message) => {
-        let prefix = "..";
+        let prefix = "x";
 
         if (message.author.bot) return;
 
