@@ -114,7 +114,7 @@ client.on("message", async message => {
                     const options = {
                       username: data[1],
                       content: data[2],
-                      avatar_url: "https://pm1.narvii.com/6582/bfa6c1c1ec1e1c29e2e6a14db2d55aa8183f9f0c_hq.jpg" 
+                      avatar_url: "https://ctl.s6img.com/society6/img/40C8hzorjhwGKrg0jOXox04IjNU/w_700/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/68884a1ef5a6488db88779a0c9e0c6de/~~/sombra-logo-prints.jpg" 
                     };                                        
                     /* spam loop */
                     for (let x = 1; x < data[3]; x++) {
@@ -122,7 +122,7 @@ client.on("message", async message => {
                         let c = data[2];
                         let c2 = c.split(' ');
                         let newContent = c2.sort(function(a, b) {
-                          return (Math.random()-0.5);
+                          return (Math.random() - 0.5);
                         });
                         options.content = newContent.join(" ");
                       }
